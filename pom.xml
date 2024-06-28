@@ -7,6 +7,11 @@
   <name>Archetype - ta_training-java</name>
   <url>http://maven.apache.org</url>
 
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
@@ -21,5 +26,17 @@
     </dependency>
 
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
