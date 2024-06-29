@@ -9,23 +9,19 @@ import java.time.Duration;
 
 public class ConfirmationPage {
     private WebDriver driver;
-
     private By successMessage = By.cssSelector(".notice.-success.-post-view");
 
     public ConfirmationPage(WebDriver driver) {
         this.driver = driver;
     }
 
-
-    public void waitForAlertBanner(){
+    private void waitForSuccessMessage(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(successMessage));
     }
 
     public String getConfirmationText(){
-        waitForAlertBanner();
+        waitForSuccessMessage();
         return driver.findElement(successMessage).getText();
     }
-
-
 }
