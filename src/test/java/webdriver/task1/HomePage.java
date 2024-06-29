@@ -3,7 +3,7 @@ package webdriver.task1;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class PasteBinHomePage {
+public class HomePage {
     private static final String HOMEPAGE_URL = "https://pastebin.com/";
     private WebDriver driver;
     private By codeInput = By.id("postform-text");
@@ -12,11 +12,11 @@ public class PasteBinHomePage {
     private By submitButton = By.cssSelector(".form-btn-container button.btn");
     private String expirationItems = "//li[text()='%s' and @class='select2-results__option']";
 
-    public PasteBinHomePage(WebDriver driver) {
+    public HomePage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public PasteBinHomePage openPage(){
+    public HomePage openPage(){
         driver.get(HOMEPAGE_URL);
         driver.manage().window().maximize();
         return this;

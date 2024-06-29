@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PageBinTest {
+public class PastebinTest {
     WebDriver driver;
 
     @BeforeEach
@@ -19,17 +19,16 @@ public class PageBinTest {
 
     @Test
     void savePaste(){
-
         String code = "Hello from WebDriver";
         String expirationTime = "10 Minutes";
         String title = "helloweb";
 
-        String actualConfirmationText = new PasteBinHomePage(driver)
+        String expectedConfirmationText = "Your guest paste has been posted";
+
+        String actualConfirmationText = new HomePage(driver)
                 .openPage()
                 .fillForm(code, expirationTime, title)
                 .getConfirmationText();
-
-        String expectedConfirmationText = "Your guest paste has been posted";
 
         assertTrue(actualConfirmationText.contains(expectedConfirmationText));
     }
