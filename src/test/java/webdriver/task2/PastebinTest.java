@@ -33,13 +33,16 @@ public class PastebinTest {
                 .openPage()
                 .fillForm(code, expirationTime, highlighting, title);
 
-      /*  String actualPageTitle = confirmationPage.getWindowTitle();
-        String actualCode = confirmationPage.getCode();
+        String actualPageTitle = confirmationPage.getWindowTitle();
+        assertTrue(actualPageTitle.contains(title));
+
         String actualSyntax = confirmationPage.getSyntax();
-        System.out.println(actualSyntax +" "+actualCode+" "+actualPageTitle);*/
-  /*      assertTrue(actualPageTitle.contains(title));
+        assertEquals(actualSyntax, highlighting);
+
+        String actualCode = confirmationPage.getCode();
+
         assertTrue(actualCode.contains(code));
-        assertEquals(actualSyntax, highlighting);*/
+
 
     }
 

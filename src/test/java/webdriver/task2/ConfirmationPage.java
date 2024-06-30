@@ -10,7 +10,7 @@ import java.time.Duration;
 public class ConfirmationPage {
     private WebDriver driver;
     private By successMessage = By.cssSelector(".notice.-success.-post-view");
-    private By code = By.xpath("//div[@class='source']");
+    private By code = By.xpath(".bash");
     private By syntax = By.cssSelector(".highlighted-code a.btn.h_800");
 
     public ConfirmationPage(WebDriver driver) {
