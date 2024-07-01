@@ -1,22 +1,16 @@
-package webdriver.task2;
+package com.epam.training.sofia_millan.webdriver.task1;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
-
 
 public class HomePage {
     private static final String HOMEPAGE_URL = "https://pastebin.com/";
     private WebDriver driver;
     private By codeInput = By.id("postform-text");
     private By expirationContainer = By.id("select2-postform-expiration-container");
-    private By syntaxContainer = By.id("select2-postform-format-container");
     private By titleInput = By.id("postform-name");
     private By submitButton = By.cssSelector(".form-btn-container button.btn");
-    private String expirationItems = "//li[text()='%s' and starts-with(@id, 'select2-postform-expiration-result-')]";
-    private String syntaxItems = "//li[text()='%s' and starts-with(@id, 'select2-postform-format-result-')]";
-
-
+    private String expirationItems = "//li[text()='%s' and @class='select2-results__option']";
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -28,16 +22,13 @@ public class HomePage {
         return this;
     }
 
-    public ConfirmationPage fillForm(String code, String expirationTime, String syntax, String title) throws InterruptedException {
-        Actions actions = new Actions(driver);
+    public ConfirmationPage fillForm(String code,  String expirationTime, String title){
         driver.findElement(codeInput).sendKeys(code);
-        driver.findElement(syntaxContainer).click();
-        driver.findElement(getDynamicBy(syntaxItems, syntax)).click();
         driver.findElement(expirationContainer).click();
         driver.findElement(getDynamicBy(expirationItems, expirationTime)).click();
         driver.findElement(titleInput).sendKeys(title);
-   /*     driver.findElement(submitButton).click();*/
-        Thread.sleep(9000);
+        driver.findElement(submitButton).click();
+
         return new ConfirmationPage(driver);
     }
 
@@ -45,4 +36,5 @@ public class HomePage {
         String dynamicXPath = String.format(baseXpath, dynamicText);
         return By.xpath(dynamicXPath);
     }
+
 }

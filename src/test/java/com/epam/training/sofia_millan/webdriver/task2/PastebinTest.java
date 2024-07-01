@@ -1,4 +1,4 @@
-package webdriver.task2;
+package com.epam.training.sofia_millan.webdriver.task2;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
