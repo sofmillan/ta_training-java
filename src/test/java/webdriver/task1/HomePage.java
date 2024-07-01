@@ -7,7 +7,7 @@ public class HomePage {
     private static final String HOMEPAGE_URL = "https://pastebin.com/";
     private WebDriver driver;
     private By codeInput = By.id("postform-text");
-    private By expirationArrow = By.cssSelector(".field-postform-expiration .select2-selection__arrow");
+    private By expirationContainer = By.id("select2-postform-expiration-container");
     private By titleInput = By.id("postform-name");
     private By submitButton = By.cssSelector(".form-btn-container button.btn");
     private String expirationItems = "//li[text()='%s' and @class='select2-results__option']";
@@ -24,7 +24,7 @@ public class HomePage {
 
     public ConfirmationPage fillForm(String code,  String expirationTime, String title){
         driver.findElement(codeInput).sendKeys(code);
-        driver.findElement(expirationArrow).click();
+        driver.findElement(expirationContainer).click();
         driver.findElement(getDynamicBy(expirationItems, expirationTime)).click();
         driver.findElement(titleInput).sendKeys(title);
         driver.findElement(submitButton).click();
