@@ -28,7 +28,7 @@ public class HomePage {
         return this;
     }
 
-    public ConfirmationPage fillForm(String code, String expirationTime, String syntax, String title) throws InterruptedException {
+    public ConfirmationPage fillForm(String code, String expirationTime, String syntax, String title)  {
         Actions actions = new Actions(driver);
         driver.findElement(codeInput).sendKeys(code);
         driver.findElement(syntaxContainer).click();
@@ -37,7 +37,7 @@ public class HomePage {
         driver.findElement(getDynamicBy(expirationItems, expirationTime)).click();
         driver.findElement(titleInput).sendKeys(title);
    /*     driver.findElement(submitButton).click();*/
-        Thread.sleep(9000);
+
         return new ConfirmationPage(driver);
     }
 
