@@ -2,8 +2,6 @@ package com.epam.training.sofia_millan.webdriver.task2;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
-
 
 public class HomePage {
     private static final String HOMEPAGE_URL = "https://pastebin.com/";
@@ -17,7 +15,6 @@ public class HomePage {
     private String syntaxItems = "//li[text()='%s' and starts-with(@id, 'select2-postform-format-result-')]";
 
 
-
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -28,16 +25,14 @@ public class HomePage {
         return this;
     }
 
-    public ConfirmationPage fillForm(String code, String expirationTime, String syntax, String title)  {
-        Actions actions = new Actions(driver);
+    public ConfirmationPage fillForm(String code, String expirationTime, String syntax, String title){
         driver.findElement(codeInput).sendKeys(code);
         driver.findElement(syntaxContainer).click();
         driver.findElement(getDynamicBy(syntaxItems, syntax)).click();
         driver.findElement(expirationContainer).click();
         driver.findElement(getDynamicBy(expirationItems, expirationTime)).click();
         driver.findElement(titleInput).sendKeys(title);
-   /*     driver.findElement(submitButton).click();*/
-
+        driver.findElement(submitButton).click();
         return new ConfirmationPage(driver);
     }
 
