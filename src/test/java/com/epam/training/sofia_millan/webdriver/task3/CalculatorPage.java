@@ -14,7 +14,9 @@ public class CalculatorPage {
     private final static String URL = "https://cloud.google.com/products/calculator";
     private String baseDropDown = "//div[contains(@class, 'VfPpkd-TkwUic') and .//span[contains(@class, 'VfPpkd-NLUYnc-V67aGc-OWXEXe-TATcMc-KLRBe') and contains(text(), '%s')]]";
     private String list = "//li[@data-value='%s']";
+    private String label = "//label[contains(@class, 'zT2df') and @for='%s']";
     private WebDriverWait wait;
+    private By numberInstancesInput = By.cssSelector(".qdOxv-fmcmS-wGMbrd-sM5MNb input[type='number']");
 
 
     public CalculatorPage(WebDriver driver) {
@@ -29,17 +31,15 @@ public class CalculatorPage {
 
     public void fillForm() throws InterruptedException {
         driver.findElement(By.cssSelector(".jirROd button")).click(); // Add to estimate
-        Thread.sleep(1000);
-        driver.findElement(By.xpath("//h2[text()='Compute Engine']")).click();
-        Thread.sleep(1000);
-        driver.findElement(By.cssSelector(".qdOxv-fmcmS-wGMbrd-sM5MNb input")).clear();
-        driver.findElement(By.cssSelector(".qdOxv-fmcmS-wGMbrd-sM5MNb input")).sendKeys("4"); //N instances
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[text()='Compute Engine']"))).click();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(numberInstancesInput)).clear();
+        driver.findElement(numberInstancesInput).sendKeys("4");
 
         findItemFromDropDown("Operating System").click();
         findItemInList("free-debian-centos-coreos-ubuntu-or-byol-bring-your-own-license").click();
 
-        //Provisioning model
-        driver.findElement(By.xpath("//label[contains(@class, 'zT2df') and @for='regular']")).click();
+        findLabel("regular").click();
 
         findItemFromDropDown("Machine Family").click();
         findItemInList("general-purpose").click();
@@ -61,15 +61,12 @@ public class CalculatorPage {
         findItemInList("1").click();
 
         findItemFromDropDown("Local SSD").click();
-        Thread.sleep(2000);
         driver.findElements(By.xpath("//li[@data-value='2']")).get(1).click();
 
-        //Region
         findItemFromDropDown("Region").click();
         findItemInList("europe-west4").click();
 
-        driver.findElement(By.xpath("//label[contains(@class, 'zT2df') and @for='1-year']")).click();
-
+        findLabel("1-year").click();
     }
 
     public void share(){
@@ -85,10 +82,13 @@ public class CalculatorPage {
         String locator = String.format(baseDropDown, title);
         return driver.findElement(By.xpath(locator));
     }
+    private WebElement findLabel(String title){
+        String locator = String.format(label, title);
+        return driver.findElement(By.xpath(locator));
+    }
 
     private WebElement findItemInList(String value){
         String locator = String.format(list, value);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
-
     }
 }

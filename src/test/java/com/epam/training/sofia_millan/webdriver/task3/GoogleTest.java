@@ -19,27 +19,17 @@ public class GoogleTest {
         calculatorPage.openPage();
 
         calculatorPage.fillForm();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         String price = calculatorPage.getPrice();
 
         calculatorPage.share();
 
-
+        SummaryPage summaryPage = new SummaryPage(driver);
         System.out.println(price);
+        Thread.sleep(10000);
+        summaryPage.a();
 
-/*
-        String ex =driver.findElement(By.xpath("//h6[contains(@class, 'SeJRAd')]")).getText();
-*/
 
-/*
-        String ex = wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("h4"))).getText();
-*/
-        Thread.sleep(3000);
-/*        WebElement element = (WebElement) ((JavascriptExecutor) driver)
-                .executeScript("return document.querySelector('h4');");
-        System.out.println(element.getText());*/
-
-       /* System.out.println(ex);*/
 
     }
 /*    @AfterEach
