@@ -26,7 +26,7 @@ public class GoogleTest {
 
         SummaryPage summaryPage = new SummaryPage(driver);
         System.out.println(price);
-        Thread.sleep(10000);
+        Thread.sleep(2000);
         summaryPage.a();
 
 

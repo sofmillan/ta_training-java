@@ -17,6 +17,12 @@ public class CalculatorPage {
     private String label = "//label[contains(@class, 'zT2df') and @for='%s']";
     private WebDriverWait wait;
     private By numberInstancesInput = By.cssSelector(".qdOxv-fmcmS-wGMbrd-sM5MNb input[type='number']");
+    private By product = By.xpath("//h2[text()='Compute Engine']");
+    private By addGPUButton = By.xpath("//button[@aria-label='Add GPUs']");
+    private By shareButton = By.xpath("//span[contains(@class, 'FOBRw-RLmnJb')]");
+    private By openEstimateButton = By.xpath("//a[contains(@class, 'rP2xkc')]");
+    private By estimatedCost = By.xpath("//span[contains(@class, 'MyvX5d')]");
+    private By addToEstimateButton = By.cssSelector(".jirROd button");
 
 
     public CalculatorPage(WebDriver driver) {
@@ -30,8 +36,7 @@ public class CalculatorPage {
     }
 
     public void fillForm() throws InterruptedException {
-        driver.findElement(By.cssSelector(".jirROd button")).click(); // Add to estimate
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[text()='Compute Engine']"))).click();
+        addProductToEstimate(product);
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(numberInstancesInput)).clear();
         driver.findElement(numberInstancesInput).sendKeys("4");
@@ -50,8 +55,7 @@ public class CalculatorPage {
         findItemFromDropDown("Machine type").click();
         findItemInList("n1-standard-8").click();
 
-        //Add gpus
-        driver.findElement(By.xpath("//button[@aria-label='Add GPUs']")).click();
+        driver.findElement(addGPUButton).click();
         Thread.sleep(2000);
 
         findItemFromDropDown("GPU Model").click();
@@ -70,12 +74,12 @@ public class CalculatorPage {
     }
 
     public void share(){
-        driver.findElement(By.xpath("//span[contains(@class, 'FOBRw-RLmnJb')]")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class, 'rP2xkc')]"))).click();
+        driver.findElement(shareButton).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(openEstimateButton)).click();
     }
 
     public String getPrice(){
-        return driver.findElement(By.xpath("//span[contains(@class, 'MyvX5d')]")).getText();
+        return driver.findElement(estimatedCost).getText();
     }
 
     private WebElement findItemFromDropDown(String title){
@@ -90,5 +94,10 @@ public class CalculatorPage {
     private WebElement findItemInList(String value){
         String locator = String.format(list, value);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
+    }
+
+    private void addProductToEstimate(By productLocator){
+        driver.findElement(addToEstimateButton).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(productLocator)).click();
     }
 }
