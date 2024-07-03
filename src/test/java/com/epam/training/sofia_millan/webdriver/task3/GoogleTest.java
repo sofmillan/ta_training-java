@@ -1,10 +1,15 @@
 package com.epam.training.sofia_millan.webdriver.task3;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class GoogleTest {
@@ -16,18 +21,17 @@ public class GoogleTest {
     @Test
     void calculator() throws Exception{
         CalculatorPage calculatorPage = new CalculatorPage(driver);
-        calculatorPage.openPage();
 
-        calculatorPage.fillForm();
-        Thread.sleep(1000);
-        String price = calculatorPage.getPrice();
+        Double estimateCalculator = new CalculatorPage(driver)
+                .openPage()
+                .fillForm()
+                .getEstimate();
 
-        calculatorPage.share();
+        Double estimateResult = calculatorPage
+                .share()
+                .getEstimate();
 
-        SummaryPage summaryPage = new SummaryPage(driver);
-        System.out.println(price);
-        Thread.sleep(2000);
-        summaryPage.a();
+        assertEquals(estimateResult, estimateCalculator);
 
 
 

@@ -4,17 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.time.Duration;
+import java.util.Locale;
 
 public class CalculatorPage {
-    private WebDriver driver;
     private final static String URL = "https://cloud.google.com/products/calculator";
-    private String baseDropDown = "//div[contains(@class, 'VfPpkd-TkwUic') and .//span[contains(@class, 'VfPpkd-NLUYnc-V67aGc-OWXEXe-TATcMc-KLRBe') and contains(text(), '%s')]]";
-    private String list = "//li[@data-value='%s']";
-    private String label = "//label[contains(@class, 'zT2df') and @for='%s']";
+    private WebDriver driver;
     private WebDriverWait wait;
     private By numberInstancesInput = By.cssSelector(".qdOxv-fmcmS-wGMbrd-sM5MNb input[type='number']");
     private By product = By.xpath("//h2[text()='Compute Engine']");
@@ -23,6 +22,10 @@ public class CalculatorPage {
     private By openEstimateButton = By.xpath("//a[contains(@class, 'rP2xkc')]");
     private By estimatedCost = By.xpath("//span[contains(@class, 'MyvX5d')]");
     private By addToEstimateButton = By.cssSelector(".jirROd button");
+    private By updateMessage = By.xpath("//div[contains(@class,'Z7Qi9d') and contains(@class, ' HY0Uh')]");
+    private String baseDropDown = "//div[contains(@class, 'VfPpkd-TkwUic') and .//span[contains(@class, 'VfPpkd-NLUYnc-V67aGc-OWXEXe-TATcMc-KLRBe') and contains(text(), '%s')]]";
+    private String list = "//li[@data-value='%s']";
+    private String label = "//label[contains(@class, 'zT2df') and @for='%s']";
 
 
     public CalculatorPage(WebDriver driver) {
@@ -30,12 +33,13 @@ public class CalculatorPage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public void openPage(){
+    public CalculatorPage openPage(){
         driver.get(URL);
         driver.manage().window().maximize();
+        return this;
     }
 
-    public void fillForm() throws InterruptedException {
+    public CalculatorPage fillForm() throws InterruptedException {
         addProductToEstimate(product);
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(numberInstancesInput)).clear();
@@ -56,7 +60,7 @@ public class CalculatorPage {
         findItemInList("n1-standard-8").click();
 
         driver.findElement(addGPUButton).click();
-        Thread.sleep(2000);
+     /*   Thread.sleep(1000);*/
 
         findItemFromDropDown("GPU Model").click();
         findItemInList("nvidia-tesla-v100").click();
@@ -71,20 +75,24 @@ public class CalculatorPage {
         findItemInList("europe-west4").click();
 
         findLabel("1-year").click();
+        return this;
     }
 
-    public void share(){
+    public SummaryPage share(){
         driver.findElement(shareButton).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(openEstimateButton)).click();
+        return new SummaryPage(driver);
     }
 
-    public String getPrice(){
-        return driver.findElement(estimatedCost).getText();
+    public Double getEstimate(){
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(updateMessage));
+        String estimate = driver.findElement(estimatedCost).getText();
+        return convert(estimate);
     }
 
     private WebElement findItemFromDropDown(String title){
         String locator = String.format(baseDropDown, title);
-        return driver.findElement(By.xpath(locator));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
     }
     private WebElement findLabel(String title){
         String locator = String.format(label, title);
@@ -99,5 +107,19 @@ public class CalculatorPage {
     private void addProductToEstimate(By productLocator){
         driver.findElement(addToEstimateButton).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(productLocator)).click();
+    }
+
+    public Double convert(String amount) {
+        amount = amount.replaceAll("[^\\d,\\.]", "").replace(" ", "");
+
+        NumberFormat format = NumberFormat.getInstance(Locale.GERMAN);
+
+        Number number = null;
+        try {
+            number = format.parse(amount);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return number.doubleValue();
     }
 }
