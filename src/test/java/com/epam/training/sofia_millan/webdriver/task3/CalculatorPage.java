@@ -39,7 +39,7 @@ public class CalculatorPage {
         return this;
     }
 
-    public CalculatorPage fillForm() throws InterruptedException {
+    public CalculatorPage fillForm(){
         addProductToEstimate(product);
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(numberInstancesInput)).clear();
@@ -60,7 +60,6 @@ public class CalculatorPage {
         findItemInList("n1-standard-8").click();
 
         driver.findElement(addGPUButton).click();
-     /*   Thread.sleep(1000);*/
 
         findItemFromDropDown("GPU Model").click();
         findItemInList("nvidia-tesla-v100").click();
@@ -87,7 +86,7 @@ public class CalculatorPage {
     public Double getEstimate(){
         wait.until(ExpectedConditions.invisibilityOfElementLocated(updateMessage));
         String estimate = driver.findElement(estimatedCost).getText();
-        return convert(estimate);
+        return Utils.convertStringToDouble(estimate);
     }
 
     private WebElement findItemFromDropDown(String title){
@@ -107,19 +106,5 @@ public class CalculatorPage {
     private void addProductToEstimate(By productLocator){
         driver.findElement(addToEstimateButton).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(productLocator)).click();
-    }
-
-    public Double convert(String amount) {
-        amount = amount.replaceAll("[^\\d,\\.]", "").replace(" ", "");
-
-        NumberFormat format = NumberFormat.getInstance(Locale.GERMAN);
-
-        Number number = null;
-        try {
-            number = format.parse(amount);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        return number.doubleValue();
     }
 }

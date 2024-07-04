@@ -24,26 +24,11 @@ public class SummaryPage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public Double getEstimate(){
-        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1));
+    public double getEstimate(){
+        BrowserUtils.changeTab(driver,1);
         String estimate = wait.until(ExpectedConditions
                 .visibilityOfElementLocated(estimatedCostTitle)).getText();
-        return convert(estimate);
+        return Utils.convertStringToDouble(estimate);
     }
 
-
-    public Double convert(String amount)  {
-        amount = amount.replaceAll("[^\\d,\\.]", "").replace(" ", "");
-
-        NumberFormat format = NumberFormat.getInstance(Locale.GERMAN);
-
-        Number number = null;
-        try {
-            number = format.parse(amount);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        return number.doubleValue();
-    }
 }
