@@ -19,16 +19,16 @@ public class GoogleTest {
     void calculator(){
         CalculatorPage calculatorPage = new CalculatorPage(driver);
 
-        Double estimateCalculator = new CalculatorPage(driver)
+        double calculatorEstimate = calculatorPage
                 .openPage()
                 .fillForm()
                 .getEstimate();
 
-        Double estimateResult = calculatorPage
-                .share()
+        double summaryEstimate = calculatorPage
+                .shareEstimate()
                 .getEstimate();
 
-        assertEquals(estimateResult, estimateCalculator);
+        assertEquals(calculatorEstimate, summaryEstimate);
     }
     @AfterEach
     void tearDown(){
