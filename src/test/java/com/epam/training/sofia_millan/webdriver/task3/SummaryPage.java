@@ -2,16 +2,10 @@ package com.epam.training.sofia_millan.webdriver.task3;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Set;
 
 public class SummaryPage {
     private WebDriver driver;

@@ -8,7 +8,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 public class GoogleTest {
     WebDriver driver;
     @BeforeEach
@@ -16,7 +15,7 @@ public class GoogleTest {
         driver = new ChromeDriver();
     }
     @Test
-    void calculator(){
+    void calculateEstimate(){
         CalculatorPage calculatorPage = new CalculatorPage(driver);
 
         double calculatorEstimate = calculatorPage
