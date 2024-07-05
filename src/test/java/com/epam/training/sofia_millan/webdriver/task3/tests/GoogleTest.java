@@ -1,38 +1,34 @@
 package com.epam.training.sofia_millan.webdriver.task3.tests;
 
 import com.epam.training.sofia_millan.webdriver.task3.pages.CalculatorPage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.epam.training.sofia_millan.webdriver.task3.pages.SummaryPage;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GoogleTest {
-    WebDriver driver;
-    @BeforeEach
-    void setUp(){
+    static WebDriver driver;
+    @BeforeAll
+    static void setUp(){
         driver = new ChromeDriver();
     }
     @Test
     void calculateEstimate(){
         CalculatorPage calculatorPage = new CalculatorPage(driver);
+        calculatorPage.openPage();
+        calculatorPage.fillForm();
+        double calculatorEstimate = calculatorPage.getEstimate();
+        calculatorPage.shareEstimate();
 
-        double calculatorEstimate = calculatorPage
-                .openPage()
-                .fillForm()
-                .getEstimate();
-
-        double summaryEstimate = calculatorPage
-                .shareEstimate()
-                .getEstimate();
+        SummaryPage summaryPage = new SummaryPage(driver);
+        double summaryEstimate = summaryPage.getEstimate();
 
         assertEquals(calculatorEstimate, summaryEstimate);
     }
-    @AfterEach
-    void tearDown(){
+    @AfterAll
+    static void tearDown(){
         driver.quit();
-        driver = null;
     }
 }

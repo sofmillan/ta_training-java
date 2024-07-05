@@ -31,13 +31,12 @@ public class CalculatorPage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public CalculatorPage openPage(){
+    public void openPage(){
         driver.get(URL);
         driver.manage().window().maximize();
-        return this;
     }
 
-    public CalculatorPage fillForm(){
+    public void fillForm(){
         addProductToEstimate(product);
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(numberInstancesInput)).clear();
@@ -72,13 +71,11 @@ public class CalculatorPage {
         findItemInList("europe-west4").click();
 
         findLabel("1-year").click();
-        return this;
     }
 
-    public SummaryPage shareEstimate(){
+    public void shareEstimate(){
         driver.findElement(shareButton).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(openEstimateButton)).click();
-        return new SummaryPage(driver);
     }
 
     public Double getEstimate(){
