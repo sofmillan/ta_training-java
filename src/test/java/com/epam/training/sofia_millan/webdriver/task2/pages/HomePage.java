@@ -1,4 +1,4 @@
-package com.epam.training.sofia_millan.webdriver.task2;
+package com.epam.training.sofia_millan.webdriver.task2.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

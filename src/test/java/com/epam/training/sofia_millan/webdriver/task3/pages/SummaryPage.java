@@ -1,5 +1,7 @@
-package com.epam.training.sofia_millan.webdriver.task3;
+package com.epam.training.sofia_millan.webdriver.task3.pages;
 
+import com.epam.training.sofia_millan.webdriver.task3.utils.BrowserUtils;
+import com.epam.training.sofia_millan.webdriver.task3.utils.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;

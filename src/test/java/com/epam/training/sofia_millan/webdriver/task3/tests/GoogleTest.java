@@ -1,5 +1,6 @@
-package com.epam.training.sofia_millan.webdriver.task3;
+package com.epam.training.sofia_millan.webdriver.task3.tests;
 
+import com.epam.training.sofia_millan.webdriver.task3.pages.CalculatorPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.epam.training.sofia_millan.webdriver.task1;
+package com.epam.training.sofia_millan.webdriver.task1.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -22,7 +22,7 @@ public class HomePage {
         return this;
     }
 
-    public ConfirmationPage fillForm(String code,  String expirationTime, String title){
+    public ConfirmationPage fillForm(String code, String expirationTime, String title){
         driver.findElement(codeInput).sendKeys(code);
         driver.findElement(expirationContainer).click();
         driver.findElement(getDynamicBy(expirationItems, expirationTime)).click();

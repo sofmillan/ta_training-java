@@ -1,5 +1,7 @@
-package com.epam.training.sofia_millan.webdriver.task2;
+package com.epam.training.sofia_millan.webdriver.task2.tests;
 
+import com.epam.training.sofia_millan.webdriver.task2.pages.ConfirmationPage;
+import com.epam.training.sofia_millan.webdriver.task2.pages.HomePage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

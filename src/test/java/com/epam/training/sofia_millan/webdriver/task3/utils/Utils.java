@@ -1,4 +1,4 @@
-package com.epam.training.sofia_millan.webdriver.task3;
+package com.epam.training.sofia_millan.webdriver.task3.utils;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
