@@ -2,9 +2,7 @@ package com.epam.training.sofia_millan.webdriver.task1.tests;
 
 import com.epam.training.sofia_millan.webdriver.task1.pages.ConfirmationPage;
 import com.epam.training.sofia_millan.webdriver.task1.pages.HomePage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -12,10 +10,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PastebinTest {
-    WebDriver driver;
+    static WebDriver driver;
 
-    @BeforeEach
-    void beforeEach(){
+    @BeforeAll
+    static void setUp(){
         driver = new ChromeDriver();
     }
 
@@ -36,9 +34,8 @@ public class PastebinTest {
         assertTrue(actualConfirmationText.contains(expectedConfirmationText));
     }
 
-    @AfterEach
-    public void afterEach() {
+    @AfterAll
+    static void afterEach() {
         driver.quit();
-        driver = null;
     }
 }

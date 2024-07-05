@@ -2,9 +2,7 @@ package com.epam.training.sofia_millan.webdriver.task2.tests;
 
 import com.epam.training.sofia_millan.webdriver.task2.pages.ConfirmationPage;
 import com.epam.training.sofia_millan.webdriver.task2.pages.HomePage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -13,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PastebinTest {
-    WebDriver driver;
+    static WebDriver driver;
 
-    @BeforeEach
-    void beforeEach(){
+    @BeforeAll
+    static void beforeEach(){
         driver = new ChromeDriver();
     }
 
@@ -45,9 +43,8 @@ public class PastebinTest {
         assertEquals(syntax, actualSyntax);
     }
 
-    @AfterEach
-    public void afterEach() {
+    @AfterAll
+    static void afterEach() {
         driver.quit();
-        driver = null;
     }
 }
