@@ -30,10 +30,11 @@ public class PastebinTest {
         String syntax = "Bash";
 
 
-        ConfirmationPage confirmationPage = new HomePage(driver)
-                .openPage()
-                .fillForm(code, expirationTime, syntax, title);
+        HomePage homePage = new HomePage(driver);
+        homePage.openPage();
+        homePage.fillForm(code, expirationTime, syntax, title);
 
+        ConfirmationPage confirmationPage = new ConfirmationPage(driver);
         String actualCode = confirmationPage.getCode(syntax);
         String actualPageTitle = confirmationPage.getWindowTitle();
         String actualSyntax = confirmationPage.getSyntax();

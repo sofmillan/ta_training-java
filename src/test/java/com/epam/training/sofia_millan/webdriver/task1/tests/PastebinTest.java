@@ -1,5 +1,6 @@
 package com.epam.training.sofia_millan.webdriver.task1.tests;
 
+import com.epam.training.sofia_millan.webdriver.task1.pages.ConfirmationPage;
 import com.epam.training.sofia_millan.webdriver.task1.pages.HomePage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,13 +24,14 @@ public class PastebinTest {
         String code = "Hello from WebDriver";
         String expirationTime = "10 Minutes";
         String title = "helloweb";
-
         String expectedConfirmationText = "Your guest paste has been posted";
 
-        String actualConfirmationText = new HomePage(driver)
-                .openPage()
-                .fillForm(code, expirationTime, title)
-                .getConfirmationText();
+        HomePage homePage = new HomePage(driver);
+        homePage.openPage();
+        homePage.fillAndSubmitForm(code, expirationTime, title);
+
+        ConfirmationPage confirmationPage = new ConfirmationPage(driver);
+        String actualConfirmationText = confirmationPage.getConfirmationText();
 
         assertTrue(actualConfirmationText.contains(expectedConfirmationText));
     }

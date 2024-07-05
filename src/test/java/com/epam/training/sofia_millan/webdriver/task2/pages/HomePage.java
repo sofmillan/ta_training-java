@@ -19,13 +19,12 @@ public class HomePage {
         this.driver = driver;
     }
 
-    public HomePage openPage(){
+    public void openPage(){
         driver.get(HOMEPAGE_URL);
         driver.manage().window().maximize();
-        return this;
     }
 
-    public ConfirmationPage fillForm(String code, String expirationTime, String syntax, String title){
+    public void fillForm(String code, String expirationTime, String syntax, String title){
         driver.findElement(codeInput).sendKeys(code);
         driver.findElement(syntaxContainer).click();
         driver.findElement(getDynamicBy(syntaxItems, syntax)).click();
@@ -33,7 +32,6 @@ public class HomePage {
         driver.findElement(getDynamicBy(expirationItems, expirationTime)).click();
         driver.findElement(titleInput).sendKeys(title);
         driver.findElement(submitButton).click();
-        return new ConfirmationPage(driver);
     }
 
     public By getDynamicBy(String baseXpath, String dynamicText) {
