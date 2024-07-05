@@ -2,18 +2,33 @@ package com.epam.training.sofia_millan.webdriver.task1.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class HomePage {
     private static final String HOMEPAGE_URL = "https://pastebin.com/";
     private WebDriver driver;
-    private By codeInput = By.id("postform-text");
-    private By expirationContainer = By.id("select2-postform-expiration-container");
-    private By titleInput = By.id("postform-name");
-    private By submitButton = By.cssSelector(".form-btn-container button.btn");
+    private WebDriverWait wait;
+    @FindBy(id = "postform-text")
+    private WebElement codeInput;
+    @FindBy(id = "select2-postform-expiration-container")
+    private WebElement expirationContainer;
+    @FindBy(id = "postform-name")
+    private WebElement titleInput;
+    @FindBy(css = ".form-btn-container button.btn")
+    private WebElement submitButton;
+
     private String expirationItems = "//li[text()='%s' and @class='select2-results__option']";
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        PageFactory.initElements(driver, this);
     }
 
     public void openPage(){
@@ -22,11 +37,11 @@ public class HomePage {
     }
 
     public void fillAndSubmitForm(String code, String expirationTime, String title){
-        driver.findElement(codeInput).sendKeys(code);
-        driver.findElement(expirationContainer).click();
-        driver.findElement(getDynamicBy(expirationItems, expirationTime)).click();
-        driver.findElement(titleInput).sendKeys(title);
-        driver.findElement(submitButton).click();
+        codeInput.sendKeys(code);
+        expirationContainer.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(getDynamicBy(expirationItems, expirationTime))).click();
+        titleInput.sendKeys(title);
+        submitButton.click();
     }
 
     public By getDynamicBy(String baseXpath, String dynamicText) {
