@@ -2,6 +2,9 @@ package com.epam.training.sofia_millan.webdriver.task2.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -9,11 +12,15 @@ import java.time.Duration;
 
 public class ConfirmationPage {
     private WebDriver driver;
-    private By syntax = By.cssSelector(".highlighted-code a.btn.h_800");
+    private WebDriverWait wait;
+    @FindBy(css = ".highlighted-code a.btn.h_800")
+    private WebElement syntax;
     private String code = ".%s";
 
     public ConfirmationPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        PageFactory.initElements(driver, this);
     }
 
     public String getWindowTitle(){
@@ -21,17 +28,13 @@ public class ConfirmationPage {
     }
 
     public String getCode(String syntax){
-        waitForCode(syntax);
-        return driver.findElement(getDynamicBy(code, syntax.toLowerCase())).getText();
+        By codeLocator  = getDynamicBy(code, syntax.toLowerCase());
+        wait.until(ExpectedConditions.visibilityOfElementLocated(codeLocator));
+        return driver.findElement(codeLocator).getText();
     }
 
     public String getSyntax(){
-        return driver.findElement(syntax).getText();
-    }
-
-    private void waitForCode(String syntax){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(getDynamicBy(code, syntax.toLowerCase())));
+        return wait.until(ExpectedConditions.visibilityOf(syntax)).getText();
     }
 
     private By getDynamicBy(String base, String dynamicText){
