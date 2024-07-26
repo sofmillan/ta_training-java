@@ -10,6 +10,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+/**
+ * This class represents the home page of the PasteBin website and provides methods
+ * to interact with its elements.
+ * @author Sofía Millán
+ */
 public class HomePage {
     private static final String HOMEPAGE_URL = "https://pastebin.com/";
     private WebDriver driver;
@@ -25,17 +30,32 @@ public class HomePage {
 
     private String expirationItems = "//li[text()='%s' and @class='select2-results__option']";
 
+    /**
+     * Constructor for HomePage.
+     * Initializes the WebDriver and WebDriverWait, and sets up PageFactory.
+     * @param driver the WebDriver instance.
+     */
     public HomePage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * Opens the PasteBin page in the web browser.
+     * Maximizes the browser window.
+     */
     public void openPage(){
         driver.get(HOMEPAGE_URL);
         driver.manage().window().maximize();
     }
 
+    /**
+     * Fills the Pastebin form with the provided code, expiration time, and title.
+     * @param code the code to be pasted.
+     * @param expirationTime the desired expiration time.
+     * @param title the title for the paste.
+     */
     public void fillAndSubmitForm(String code, String expirationTime, String title){
         codeInput.sendKeys(code);
         expirationContainer.click();
@@ -44,6 +64,12 @@ public class HomePage {
         submitButton.click();
     }
 
+    /**
+     * Creates a dynamic By object based on a base XPath and dynamic text.
+     * @param baseXpath the base XPath string containing a placeholder `%s`.
+     * @param dynamicText the text to replace the placeholder in the base XPath.
+     * @return A By object representing the dynamic element.
+     */
     public By getDynamicBy(String baseXpath, String dynamicText) {
         String dynamicXPath = String.format(baseXpath, dynamicText);
         return By.xpath(dynamicXPath);

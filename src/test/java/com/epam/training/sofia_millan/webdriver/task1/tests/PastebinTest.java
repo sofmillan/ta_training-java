@@ -9,9 +9,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * This class contains automated tests for the Pastebin website.
+ * @author Sofía Millán
+ */
 public class PastebinTest {
     static WebDriver driver;
 
+    /**
+     * Initializes the driver, using ChromeDriver, before any test methods are executed.
+     */
     @BeforeAll
     static void setUp(){
         driver = new ChromeDriver();
@@ -24,16 +31,21 @@ public class PastebinTest {
         String title = "helloweb";
         String expectedConfirmationText = "Your guest paste has been posted";
 
+        // 1. Opens the Pastebin page, fills and submit the form on the Home Page
         HomePage homePage = new HomePage(driver);
         homePage.openPage();
         homePage.fillAndSubmitForm(code, expirationTime, title);
 
+        // 2. Retrieves the confirmation text from the Confirmation Page
         ConfirmationPage confirmationPage = new ConfirmationPage(driver);
-        String actualConfirmationText = confirmationPage.getConfirmationText();
+        String actualConfirmationText = confirmationPage.getSuccessText();
 
         assertTrue(actualConfirmationText.contains(expectedConfirmationText));
     }
 
+    /**
+     * Closes all driver windows after all test methods have been executed.
+     */
     @AfterAll
     static void afterEach() {
         driver.quit();
