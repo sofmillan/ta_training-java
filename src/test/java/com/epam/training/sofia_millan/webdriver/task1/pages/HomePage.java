@@ -51,7 +51,7 @@ public class HomePage {
     }
 
     /**
-     * Fills the Pastebin form with the provided code, expiration time, and title.
+     * Fills the Pastebin form with the provided code, expiration time, and title and submits the form.
      * @param code the code to be pasted.
      * @param expirationTime the desired expiration time.
      * @param title the title for the paste.

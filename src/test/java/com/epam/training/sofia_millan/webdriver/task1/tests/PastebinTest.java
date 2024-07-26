@@ -40,6 +40,7 @@ public class PastebinTest {
         ConfirmationPage confirmationPage = new ConfirmationPage(driver);
         String actualConfirmationText = confirmationPage.getSuccessText();
 
+        // 3. Verifies confirmation text is present
         assertTrue(actualConfirmationText.contains(expectedConfirmationText));
     }
 
